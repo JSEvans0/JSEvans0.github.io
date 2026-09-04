@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Airline Passenger Satisfaction — Jesse Evans</title>
+  <meta name="description" content="Modeling which parts of the flying experience actually drive airline passenger satisfaction, with an interactive Streamlit explorer.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Classification &amp; regression &middot; Python</p>
+      <h1>Airline Passenger Satisfaction</h1>
+      <p class="meta">Which parts of the flying experience actually move the needle on satisfaction?</p>
+
+      <ul class="tags">
+        <li>Python</li><li>pandas</li><li>scikit-learn</li><li>Streamlit</li><li>EDA</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://jsevans0airlinepassengersatisfaction.streamlit.app/" target="_blank" rel="noopener">Open the live explorer</a>
+        <a class="btn btn--ghost" href="https://github.com/JSEvans0/Mod8-Project-Airline-Satisfaction-Predictions" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>
+        An airline runs a passenger satisfaction survey, so it already knows <em>who</em> is
+        unhappy. What it doesn&rsquo;t know is <em>which</em> part of the journey to fix first.
+        Cabin comfort, boarding, food, delays and booking are all candidates, and they can&rsquo;t
+        all be a priority.
+      </p>
+      <p>
+        My goal: predict passenger satisfaction from the survey responses and flight details,
+        then read the model to rank what actually drives the score.
+      </p>
+
+      <h2>The data</h2>
+      <p>
+        The airline passenger satisfaction dataset from
+        <a href="https://www.kaggle.com/datasets/teejmahal20/airline-passenger-satisfaction/data" target="_blank" rel="noopener">Kaggle</a>,
+        covering roughly 130,000 survey responses. Alongside the satisfaction score it carries
+        passenger details (age, customer type, class, type of travel), flight facts
+        (distance, departure and arrival delay), and 1&ndash;5 ratings across fourteen parts of
+        the service &mdash; online boarding, seat comfort, inflight wifi, food and drink,
+        baggage handling, and so on.
+      </p>
+
+      <h2>Cleaning the data</h2>
+      <ol>
+        <li>
+          <strong>Nulls.</strong> Inspection turned up 310 null values, all concentrated in a
+          single column. With that few rows out of 130,000, dropping them cost nothing.
+        </li>
+        <li>
+          <strong>Outliers.</strong> Three columns held values extreme enough to distort a
+          linear fit. I removed 58 rows from <code>Flight Distance</code>, 77 from
+          <code>Departure Delay in Minutes</code>, and 14 from
+          <code>Arrival Delay in Minutes</code>.
+        </li>
+        <li>
+          <strong>Result.</strong> A clean, fully numeric frame ready to train on, with well
+          over 99% of the original rows intact.
+        </li>
+      </ol>
+
+      <h2>Method</h2>
+      <p>
+        I fit a linear regression model and compared it against a baseline that simply predicts
+        the mean every time. The baseline matters: without it, a given error number means
+        nothing. I also built an interactive Streamlit app so the visualizations aren&rsquo;t
+        frozen in a notebook &mdash; anyone can slice the data themselves.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Try it yourself:</strong> the
+          <a href="https://jsevans0airlinepassengersatisfaction.streamlit.app/" target="_blank" rel="noopener">Airline Satisfaction Explorer</a>
+          lets you browse the dataset, view distributions, and build your own comparisons
+          without touching any code.
+        </p>
+      </div>
+
+      <h2>Results</h2>
+
+      <div class="table-wrap">
+        <table>
+          <caption class="visually-hidden">Model performance versus baseline</caption>
+          <thead>
+            <tr><th>Model</th><th>RMSE</th><th>R&sup2;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Linear Regression</td><td>0.3759</td><td>0.4244</td></tr>
+            <tr><td>Baseline (mean)</td><td>0.4954</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The model beats the baseline by a clear margin and explains about 42% of the variance
+        in satisfaction &mdash; reasonable for survey data, where a lot of the variation comes
+        down to individual mood. The more valuable output here isn&rsquo;t the prediction; it&rsquo;s
+        the ranking of coefficients underneath it.
+      </p>
+
+      <h3>What drives satisfaction</h3>
+      <ul>
+        <li><strong>Online boarding</strong> had the single largest positive effect on satisfaction.</li>
+        <li><strong>Departure/arrival time convenience</strong> had the largest negative effect &mdash; inconvenient schedules cost the airline more goodwill than anything else measured.</li>
+        <li><strong>Flight distance, departure delay, arrival delay and age</strong> had almost no measurable effect. That&rsquo;s the counterintuitive one: delays are what passengers complain about, but they aren&rsquo;t what the survey scores track.</li>
+      </ul>
+
+      <h2>Recommendations</h2>
+      <ul>
+        <li>
+          <strong>Protect the online boarding experience.</strong> It&rsquo;s the strongest
+          positive lever in the data, which makes it the thing most expensive to break.
+        </li>
+        <li>
+          <strong>Work on schedule convenience.</strong> More convenient departure and arrival
+          times is the clearest available win, and the one with the most room to move.
+        </li>
+        <li>
+          <strong>Then look at ease of online booking and food and drink.</strong> Both scored
+          weakly enough to be worth attention once the two levers above are handled.
+        </li>
+        <li>
+          <strong>Don&rsquo;t over-invest in delay reduction as a satisfaction play.</strong>
+          It may be worth doing for other reasons, but this data doesn&rsquo;t show it moving
+          satisfaction scores.
+        </li>
+      </ul>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>
+        Satisfaction here is effectively a binary outcome, so a classification model
+        (logistic regression, or a tree-based model) would likely predict better than linear
+        regression and would give me precision and recall to reason about rather than R&sup2;.
+        I&rsquo;d also test interaction terms &mdash; I suspect delay tolerance depends heavily
+        on travel class and whether the trip is business or personal.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://jsevans0airlinepassengersatisfaction.streamlit.app/" target="_blank" rel="noopener">Open the live explorer</a>
+        <a class="btn btn--ghost" href="https://github.com/JSEvans0/Mod8-Project-Airline-Satisfaction-Predictions" target="_blank" rel="noopener">Code &amp; notebooks</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

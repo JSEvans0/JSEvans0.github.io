@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exploring IMDb Movies — Jesse Evans</title>
+  <meta name="description" content="Merging and cleaning 13.5 million rows of IMDb data down to 174,050 usable movie records to find what actually correlates with a good rating.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Independent exploration &middot; Python</p>
+      <h1>Exploring IMDb Movies</h1>
+      <p class="meta">A self-directed dig through 13.5 million rows of public film data.</p>
+
+      <ul class="tags">
+        <li>Python</li><li>pandas</li><li>Data Cleaning</li><li>Visualization</li><li>Large Datasets</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod6-Project-Independent-Exploration" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>
+        This one had no brief. I picked the dataset because I wanted to know what IMDb has
+        actually collected across decades of film, and what a person who likes movies could
+        learn from it. Specifically: does anything measurable predict whether a movie is
+        rated well?
+      </p>
+      <p>
+        Choosing my own question was the point of the exercise. Nobody handed me a target
+        variable.
+      </p>
+
+      <h2>The data</h2>
+      <p>
+        Two of the seven files from the
+        <a href="https://developer.imdb.com/non-commercial-datasets/" target="_blank" rel="noopener">IMDb Non-Commercial Datasets</a>:
+        <code>title.basics.tsv</code> and <code>title.ratings.tsv</code>. Between them they
+        carry title type, primary and original title, adult flag, start and end year, runtime,
+        up to three genres, average rating, and vote count.
+      </p>
+
+      <h2>Cleaning the data</h2>
+      <p>
+        The dataset covers every title type IMDb tracks &mdash; TV episodes dominate the row
+        count by an enormous margin &mdash; so most of the work was getting from 13.5 million
+        rows to the subset that could answer the question.
+      </p>
+      <ol>
+        <li>Merged the two tables on the title identifier.</li>
+        <li>Filtered <strong>13,520,995 rows down to the 725,597 movies</strong>, dropping episodes, shorts, TV series and video titles.</li>
+        <li>Dropped <code>endYear</code>, which only applies to series.</li>
+        <li>Converted <code>startYear</code> and <code>runtimeMinutes</code> to numeric types.</li>
+        <li>Dropped rows with nulls &mdash; 185,802 remained.</li>
+        <li>Dropped rows where <code>genres</code> was IMDb&rsquo;s <code>\N</code> placeholder &mdash; <strong>174,050 clean movie records</strong> remained.</li>
+      </ol>
+
+      <div class="callout">
+        <p>
+          <strong>13.5M &rarr; 174,050.</strong> Knowing which 1.3% of the data actually answers
+          your question is most of the job. The other 98.7% isn&rsquo;t bad data &mdash; it just
+          isn&rsquo;t about movies.
+        </p>
+      </div>
+
+      <h2>What I found</h2>
+      <ul>
+        <li>
+          <strong>The 90-minute movie is the standard.</strong> Runtime clusters hard at 90
+          minutes; it&rsquo;s far and away the most common length.
+        </li>
+        <li>
+          <strong>The most common rating is 7.2 out of 10</strong>, but the mean across all
+          movies is 6.5 &mdash; the distribution has a long tail of poorly rated films pulling
+          the average down below the mode.
+        </li>
+        <li>
+          <strong>Runtime has no meaningful relationship to rating.</strong> Longer movies are
+          not better-rated movies.
+        </li>
+        <li>
+          <strong>Vote count has no meaningful relationship to rating either.</strong>
+          Popularity and quality, at least as IMDb measures them, are close to independent.
+          A film with a hundred thousand votes is no more likely to be well rated than one
+          with a few hundred.
+        </li>
+      </ul>
+
+      <h2>Why it matters</h2>
+      <p>
+        The two null results are the interesting part. &ldquo;Long movies are self-indulgent&rdquo;
+        and &ldquo;popular means overrated&rdquo; are both things people say confidently, and
+        neither one survives contact with the data. Being able to answer that with a number
+        rather than an opinion is the whole reason to look.
+      </p>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>
+        Genre is the obvious next axis &mdash; ratings almost certainly vary more between genres
+        than they do by runtime, and each title carries up to three of them, so it needs proper
+        handling rather than a single column. I&rsquo;d also look at rating trends by release
+        decade, and weight average rating by vote count to see whether low-vote titles are
+        adding noise to the distribution.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod6-Project-Independent-Exploration" target="_blank" rel="noopener">Code &amp; notebooks</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

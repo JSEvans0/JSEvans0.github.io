@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- =========================================================================
+     TEMPLATE FOR A NEW PROJECT PAGE
+
+     1. Copy this file and rename it, e.g. projects/my-new-project.html
+        (lowercase, dashes instead of spaces, no spaces at all).
+     2. Replace everything marked >>> like this <<<.
+     3. Delete any section you don't need, and add your own.
+     4. Add the project to the PROJECTS list in data/projects.js so it shows
+        up on the Home and Projects pages.
+
+     Don't rename or delete this file — leave it here to copy again next time.
+     ========================================================================= -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>>>> Project Title <<< — Jesse Evans</title>
+  <meta name="description" content=">>> One sentence about this project. This is what shows up in Google results. <<<">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Header — copy this exactly as-is onto every project page. -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">>>> Category, e.g. Regression &middot; Python <<<</p>
+      <h1>>>> Project Title <<<</h1>
+      <p class="meta">>>> The question this project answers, in one line. <<<</p>
+
+      <!-- Tools and skills. Add or remove <li> items freely. -->
+      <ul class="tags">
+        <li>Python</li><li>pandas</li><li>>>> tool <<<</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href=">>> https://github.com/JSEvans0/your-repo <<<" target="_blank" rel="noopener">Code on GitHub</a>
+        <!-- Optional live app button:
+        <a class="btn btn--ghost" href=">>> live app url <<<" target="_blank" rel="noopener">Open the live app</a>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>>>> What question were you trying to answer, and who would care about the answer? <<<</p>
+
+      <h2>The data</h2>
+      <p>>>> Where the data came from, how big it was, and what's in it. Link the source. <<<</p>
+
+      <h2>Cleaning the data</h2>
+      <ol>
+        <li><strong>>>> Step <<<</strong> >>> What you did and, more importantly, why. <<<</li>
+        <li><strong>>>> Step <<<</strong> >>> ... <<<</li>
+      </ol>
+
+      <!-- A callout pulls one important fact out of the flow. Optional. -->
+      <div class="callout">
+        <p><strong>>>> The one number or fact worth remembering. <<<</strong> >>> Short explanation. <<<</p>
+      </div>
+
+      <h2>Method</h2>
+      <p>>>> What model or analysis you used, and what you compared it against. <<<</p>
+
+      <h2>Results</h2>
+
+      <!-- Tables scroll sideways on phones automatically. Delete if unused. -->
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Model</th><th>RMSE</th><th>R&sup2;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>>>> Your model <<<</td><td>>>> <<<</td><td>>>> <<<</td></tr>
+            <tr><td>Baseline</td><td>>>> <<<</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>>>> What the numbers mean in plain English. <<<</p>
+
+      <!-- To add an image: save it in the assets folder, then:
+      <img src="../assets/your-chart.png" alt="Describe what the chart shows, for screen readers">
+      -->
+
+      <h2>Recommendations</h2>
+      <ul>
+        <li><strong>>>> Do this. <<<</strong> >>> Because of this finding. <<<</li>
+      </ul>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>>>> Honest limitations and the next version. This section makes you look better, not worse. <<<</p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href=">>> https://github.com/JSEvans0/your-repo <<<" target="_blank" rel="noopener">Code &amp; notebooks</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer — copy this exactly as-is onto every project page. -->
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

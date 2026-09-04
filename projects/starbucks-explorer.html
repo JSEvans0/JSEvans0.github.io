@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Starbucks Nutrition Explorer — Jesse Evans</title>
+  <meta name="description" content="An interactive Streamlit app for exploring the Starbucks menu dataset, including a build-your-own chart page.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Data app &middot; Python</p>
+      <h1>Starbucks Nutrition Explorer</h1>
+      <p class="meta">A dashboard that lets other people do the exploring.</p>
+
+      <ul class="tags">
+        <li>Python</li><li>Streamlit</li><li>Plotly</li><li>pandas</li><li>EDA</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod8-Mini-Project-Starbucks-EDA" target="_blank" rel="noopener">Code on GitHub</a>
+        <!-- TODO (Jesse): if you deploy this app to Streamlit Cloud, add the link here
+             and also add a "demo:" line for it in data/projects.js.
+        <a class="btn btn--ghost" href="https://your-app.streamlit.app/" target="_blank" rel="noopener">Open the live app</a>
+        -->
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The idea</h2>
+      <p>
+        A notebook is a great place to do analysis and a bad place to hand it to someone else.
+        This project takes the Starbucks menu dataset and wraps it in a small
+        <strong>Streamlit</strong> app, so a person with no Python can browse the same data,
+        change the view, and reach their own conclusions.
+      </p>
+
+      <h2>What the app does</h2>
+      <p>The app is organized as four pages behind a sidebar:</p>
+      <ul>
+        <li><strong>Home</strong> &mdash; what the dataset is and how to move around the app.</li>
+        <li><strong>Data Overview</strong> &mdash; the cleaned table itself, with shape and column details.</li>
+        <li><strong>EDA</strong> &mdash; the distributions and relationships I thought were worth pointing out.</li>
+        <li><strong>DIY EDA</strong> &mdash; the part I care about most: pick any two features and the app charts them for you.</li>
+      </ul>
+
+      <div class="callout">
+        <p>
+          <strong>Why the DIY page matters.</strong> Any dashboard I build reflects the questions
+          I happened to think of. Giving users their own axis pickers means the tool keeps
+          working for questions I never anticipated.
+        </p>
+      </div>
+
+      <h2>How it was built</h2>
+      <ul>
+        <li>Cleaned the raw menu data in pandas and saved the result, so the app loads a prepared file rather than re-deriving it on every page view.</li>
+        <li>Built the interface in <strong>Streamlit</strong> &mdash; sidebar navigation, page routing, and widget-driven state.</li>
+        <li>Charted with <strong>Plotly</strong> rather than static images, so every plot is hoverable and zoomable.</li>
+      </ul>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>
+        The app loads the full dataset on every interaction; caching that read with
+        <code>@st.cache_data</code> is a small change with a real speed payoff. I&rsquo;d also add
+        a download button for whatever slice the user has filtered to, since &ldquo;can you send
+        me that as a CSV?&rdquo; is the question a dashboard always gets next.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod8-Mini-Project-Starbucks-EDA" target="_blank" rel="noopener">Code on GitHub</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ames Home Price Predictions — Jesse Evans</title>
+  <meta name="description" content="Cleaning an 82-column housing dataset and building a linear regression model that explains 82% of the variation in sale price.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Regression &middot; Python</p>
+      <h1>Ames Home Price Predictions</h1>
+      <p class="meta">What actually determines what a house sells for &mdash; and by how much?</p>
+
+      <ul class="tags">
+        <li>Python</li><li>pandas</li><li>scikit-learn</li><li>Linear Regression</li><li>Feature Selection</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod7-Project-Home-Price-Predictions" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>
+        Given a detailed record of a house &mdash; size, quality, condition, garage, porches,
+        lot &mdash; can I predict what it will sell for? And more usefully for a seller or an
+        agent: which features are worth money, and roughly how much?
+      </p>
+
+      <h2>The data</h2>
+      <p>
+        Residential property sales in Ames, Iowa from 2006 to 2010. The raw file arrived with
+        <strong>82 columns</strong> across about 2,930 sales: 11 floats, 28 integers, and 43
+        text columns describing everything from roof material to basement finish quality.
+      </p>
+
+      <h2>Cleaning the data</h2>
+      <p>
+        This project was mostly a cleaning exercise, and that&rsquo;s the part I&rsquo;d point
+        at first.
+      </p>
+      <ol>
+        <li>
+          <strong>Dropped the text columns.</strong> A linear regression can&rsquo;t consume
+          raw strings, and the great majority of the missing data lived in those 43 columns.
+          I also dropped <code>Order</code>, which was just a row index. That took 82 columns
+          down to 38.
+        </li>
+        <li>
+          <strong>Handled the remaining nulls deliberately, not uniformly.</strong>
+          <code>Garage Yr Blt</code> nulls became 0 &mdash; a missing garage year means no
+          garage, which is information, not absence of it. For <code>Lot Frontage</code>, the
+          bulk of values sat between 50 and 85 (mean 69.29) against an overall mean of 69.22,
+          so I filled with 69.25. The remaining 33 null rows I dropped.
+        </li>
+        <li>
+          <strong>Dropped features that were numeric but not meaningful.</strong>
+          <code>PID</code>, <code>MS SubClass</code>, <code>Year Built</code>,
+          <code>Year Remod/Add</code>, <code>Garage Yr Blt</code>, <code>Mo Sold</code> and
+          <code>Yr Sold</code> are all numbers a model will happily fit a slope to, and none
+          of them mean what that slope would imply.
+        </li>
+        <li>
+          <strong>Removed outliers.</strong> Four rows with <code>Lot Area</code> over 100,000
+          and five with <code>Misc Val</code> over 5,000.
+        </li>
+      </ol>
+
+      <div class="callout">
+        <p>
+          <strong>2,895 rows survived &mdash; 98.81% of the original data.</strong>
+          Aggressive cleaning on the column side, conservative on the row side.
+        </p>
+      </div>
+
+      <h2>Exploration</h2>
+      <p>
+        A correlation heatmap against sale price sorted the field quickly:
+      </p>
+      <ul>
+        <li><strong>Most positive:</strong> <code>Overall Qual</code>, <code>Gr Liv Area</code> (above-grade living area), and <code>Garage Cars</code>.</li>
+        <li><strong>Most negative:</strong> <code>Enclosed Porch</code>, <code>Kitchen AbvGr</code> (kitchens above grade), and <code>Overall Cond</code>.</li>
+      </ul>
+
+      <h2>Results</h2>
+      <p>
+        I trained a linear regression model and scored it against a baseline that predicts the
+        mean sale price for every house.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Model</th><th>RMSE</th><th>R&sup2;</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Linear Regression &mdash; train</td><td>$32,538</td><td>0.8346</td></tr>
+            <tr><td>Linear Regression &mdash; test</td><td>$33,597</td><td>0.8190</td></tr>
+            <tr><td>Baseline &mdash; test</td><td>$78,981</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        <strong>82% of the variation in sale price is explained by the model</strong>, and test
+        error is less than half the baseline&rsquo;s. Train and test scores sit close together,
+        which says the model generalized rather than memorized.
+      </p>
+
+      <h3>What the coefficients say</h3>
+      <p>Holding everything else constant:</p>
+      <ul>
+        <li>
+          Each one-point increase in <strong>Overall Quality Score</strong> is worth about
+          <strong>+$19,436</strong> in sale price &mdash; the strongest positive feature in the model.
+        </li>
+        <li>
+          Each additional <strong>kitchen above grade</strong> is associated with about
+          <strong>&minus;$30,655</strong> &mdash; the strongest negative feature. Almost certainly
+          a proxy rather than a cause: extra above-grade kitchens tend to signal a subdivided or
+          multi-family property, which sells differently.
+        </li>
+      </ul>
+
+      <h2>Recommendations</h2>
+      <ul>
+        <li>
+          <strong>For a seller:</strong> spending on work that raises the overall quality rating
+          is the clearest return available in this data. Cosmetic changes that don&rsquo;t move
+          that rating don&rsquo;t show up in price.
+        </li>
+        <li>
+          <strong>For an agent pricing a listing:</strong> overall quality, above-grade living
+          area, and garage capacity carry most of the signal. That&rsquo;s a fast, defensible
+          first-pass estimate.
+        </li>
+        <li>
+          <strong>Treat the kitchen coefficient carefully.</strong> Removing a kitchen will not
+          add $30,000 to a house. It marks a different kind of property, and those should be
+          priced against their own comparables.
+        </li>
+      </ul>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>
+        Dropping all 43 text columns was the right call for a first pass, but it threw away real
+        signal &mdash; neighborhood especially. One-hot encoding the categoricals with the most
+        predictive power, and testing a regularized model (Ridge or Lasso) to keep the widened
+        feature set under control, is the obvious next version.
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod7-Project-Home-Price-Predictions" target="_blank" rel="noopener">Code &amp; notebooks</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

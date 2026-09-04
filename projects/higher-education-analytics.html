@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Higher Education Consulting Analytics — Jesse Evans</title>
+  <meta name="description" content="Analyzing cost, admissions and faculty data across U.S. colleges to find evidence-backed levers for raising graduation rates.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Exploratory analysis &middot; Python</p>
+      <h1>Higher Education Consulting Analytics</h1>
+      <p class="meta">What can a college actually change to graduate more of the students it admits?</p>
+
+      <ul class="tags">
+        <li>Python</li><li>pandas</li><li>Seaborn</li><li>EDA</li><li>Stakeholder Recommendations</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod6-Project" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>
+        A consulting firm advises colleges across the country. Their clients want higher
+        graduation rates, and they want to know where to spend to get them. My job was to find
+        which measurable characteristics of an institution track with graduation &mdash; and
+        crucially, which of those a college can actually influence.
+      </p>
+
+      <h2>The data</h2>
+      <p>
+        Institution-level records covering cost, admissions and staffing. I wrote the data
+        dictionary myself as part of understanding the file:
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Group</th><th>Fields</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Institution</td>
+              <td>College name, state, public or private</td>
+            </tr>
+            <tr>
+              <td>Admissions</td>
+              <td>Applications received, applications accepted, new students enrolled, % of new students from the top 10% and top 25% of their high school class</td>
+            </tr>
+            <tr>
+              <td>Enrollment</td>
+              <td>Full-time undergraduates, part-time undergraduates</td>
+            </tr>
+            <tr>
+              <td>Cost</td>
+              <td>In-state tuition, out-of-state tuition, room, board, additional fees, estimated book costs, estimated personal spending</td>
+            </tr>
+            <tr>
+              <td>Faculty</td>
+              <td>% of faculty with a PhD, student-to-faculty ratio</td>
+            </tr>
+            <tr>
+              <td>Target</td>
+              <td>Graduation rate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Of all of it, the fields I cared about most were the new-student percentages and the
+        faculty measures &mdash; those are the ones an institution has real leverage over.
+      </p>
+
+      <h2>Method</h2>
+      <ol>
+        <li>
+          <strong>Histograms</strong> to locate outliers column by column. Every field except
+          <code>% new stud. from top 25%</code> had them.
+        </li>
+        <li>
+          <strong>Median imputation</strong> for nulls, chosen precisely because of those
+          outliers &mdash; a mean would have been dragged around by the extreme values the
+          histograms exposed.
+        </li>
+        <li>
+          <strong>A correlation heatmap</strong> to see how the fields related to each other
+          and to graduation rate.
+        </li>
+        <li>
+          <strong>Bar charts</strong> comparing each candidate factor against graduation rate.
+          These are what the conclusions rest on.
+        </li>
+      </ol>
+
+      <div class="callout">
+        <p>
+          <strong>Why median, not mean?</strong> Because the histograms came first. Picking the
+          imputation strategy after looking at the distribution &mdash; instead of reaching for
+          <code>.fillna(mean)</code> by reflex &mdash; is the difference between filling a gap
+          and inventing data.
+        </p>
+      </div>
+
+      <h2>What I found</h2>
+      <ul>
+        <li>
+          <strong>Faculty headcount tracks with graduation.</strong> Lower student-to-faculty
+          ratios line up with higher graduation rates.
+        </li>
+        <li>
+          <strong>Faculty credentials track with graduation.</strong> A higher share of faculty
+          holding PhDs is associated with better outcomes.
+        </li>
+        <li>
+          <strong>Student investment matters.</strong> The cost and enrollment patterns point to
+          students who feel more invested in their education being more likely to finish it.
+        </li>
+      </ul>
+
+      <h2>Recommendations</h2>
+      <ul>
+        <li>
+          <strong>Hire more faculty.</strong> Of everything measured here, staffing is the lever
+          with the clearest relationship to graduation and the most direct path to action.
+        </li>
+        <li>
+          <strong>Hire more credentialed faculty.</strong> Raising the share of PhD-holding staff
+          moves the same direction.
+        </li>
+        <li>
+          <strong>Increase students&rsquo; sense of investment in their education.</strong>
+          Students with more at stake in their own program complete it at higher rates.
+        </li>
+      </ul>
+
+      <h2>What I&rsquo;d do differently</h2>
+      <p>
+        These findings are correlational, and I&rsquo;d want to say that out loud to a client
+        before they spend money on them &mdash; well-funded schools can afford both more faculty
+        and the student support services that likely do some of the actual work. Splitting the
+        analysis by public versus private, and controlling for institution size, would separate
+        &ldquo;more faculty helps&rdquo; from &ldquo;wealthier schools graduate more students.&rdquo;
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://github.com/JSEvans0/Mod6-Project" target="_blank" rel="noopener">Code &amp; notebooks</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jesse Evans — Data Analyst</title>
+  <meta name="description" content="Portfolio of Jesse Evans, a data analyst working in Python, pandas and SQL. Cleaning messy data, building models, and turning the results into decisions.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ====================== HEADER / NAVIGATION ==========================
+     This same block appears on every page. If you change a link here,
+     change it in projects.html and in the project pages too.
+     ================================================================== -->
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="index.html">Jesse Evans <span>/ Data Analyst</span></a>
+
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+
+    <ul class="nav__links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================= HERO ============================= -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Hi, I&rsquo;m Jesse Evans.</h1>
+      <p class="hero__role">Data Analyst &mdash; Python, pandas, SQL</p>
+      <p class="hero__lede">
+        I take messy, real-world datasets, clean them until they can be trusted, and then
+        answer the question somebody actually cares about. Every project below ends with a
+        recommendation, not just a chart.
+      </p>
+      <p class="hero__lede">
+        The work speaks louder than the summary, so start with the projects.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="#top-projects">See my top 3 projects</a>
+        <a class="btn btn--ghost" href="projects.html">Browse everything</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= TOP 3 PROJECTS =======================
+       The cards here are generated from data/projects.js. To change which
+       projects appear, set featured: true on the three you want.
+       =============================================================== -->
+  <section class="section section--alt" id="top-projects">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Featured work</p>
+        <h2>Top 3 Projects</h2>
+        <p>
+          The three I would want a hiring manager to open first. Each one has its own
+          write-up covering the problem, how I cleaned the data, what the model or analysis
+          found, and what I would recommend doing about it.
+        </p>
+      </div>
+
+      <div class="grid" id="featured-projects">
+        <!-- Cards are inserted here by script.js -->
+        <noscript><p>Please enable JavaScript, or view the projects directly on <a href="https://github.com/JSEvans0?tab=repositories">GitHub</a>.</p></noscript>
+      </div>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="projects.html">See other projects &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ABOUT ============================= -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>A little background</h2>
+      </div>
+
+      <div class="prose">
+        <!-- TODO (Jesse): swap the two paragraphs below for your own story.
+             Worth mentioning: what you did before data, what pulled you into
+             analytics, and the kind of role you're looking for now. -->
+        <p>
+          I came to data analytics because I like the part of a problem where the answer
+          isn&rsquo;t obvious yet. I completed the data analytics program at
+          <strong>Coding Temple</strong>, where I worked through the full pipeline over and
+          over: pulling data in, cleaning it, exploring it, modeling it, and presenting the
+          result to somebody who needs to make a decision with it.
+        </p>
+        <p>
+          Since then I&rsquo;ve been building projects of my own, because I would rather show
+          the work than describe it. I&rsquo;m currently looking for a data analyst role where
+          I can keep doing exactly this.
+        </p>
+
+        <h3>What I work with</h3>
+        <ul class="skills">
+          <li>Python</li>
+          <li>pandas</li>
+          <li>NumPy</li>
+          <li>scikit-learn</li>
+          <li>Matplotlib</li>
+          <li>Seaborn</li>
+          <li>Plotly</li>
+          <li>Streamlit</li>
+          <li>SQL</li>
+          <li>Jupyter</li>
+          <li>Excel</li>
+          <li>Git &amp; GitHub</li>
+        </ul>
+
+        <h3>How I work through a dataset</h3>
+        <ol>
+          <li><strong>Ask the question first.</strong> What decision is this analysis supposed to support?</li>
+          <li><strong>Inspect and clean.</strong> Nulls, outliers, and columns that only look useful.</li>
+          <li><strong>Explore.</strong> Distributions and correlations, before assuming anything.</li>
+          <li><strong>Model or measure.</strong> Always against a baseline, so &ldquo;good&rdquo; means something.</li>
+          <li><strong>Say what to do about it.</strong> A finding without a recommendation is unfinished.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== CONTACT ============================ -->
+  <section class="section section--alt" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Contact</p>
+        <h2>Let&rsquo;s talk</h2>
+        <p>
+          I&rsquo;m open to data analyst roles and to questions about anything in this
+          portfolio. The fastest way to reach me is LinkedIn.
+        </p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--ghost" href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a>
+        <!-- TODO (Jesse): if you want an email button, uncomment this and drop your address in.
+        <a class="btn btn--ghost" href="mailto:you@example.com">Email me</a>
+        -->
+        <!-- TODO (Jesse): to add a resume, save the PDF as assets/Jesse-Evans-Resume.pdf and uncomment.
+        <a class="btn btn--ghost" href="assets/Jesse-Evans-Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+        -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="data/projects.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
