@@ -73,9 +73,21 @@ python -m http.server 8000
 
 Then open http://localhost:8000.
 
+## Private files
+
+`.gitignore` keeps your career-context notes, working resume, and the full-size
+original photo out of the repo. **Anything committed here is published** at
+jsevans0.github.io and readable by anyone who guesses the filename — so don't add
+anything to `assets/` that you wouldn't hand to a stranger.
+
+The site uses `assets/jesse-evans.jpg`, a 640×640 crop of the original (126 KB
+instead of 8.2 MB). If you swap the photo, keep it square and around that size.
+
 ## Still to do
 
-- [ ] Personalize the About section in `index.html` (search for `TODO`).
-- [ ] Decide whether to show an email address on the Contact section.
 - [ ] Add a resume PDF to `assets/` and uncomment the button in `index.html`.
+- [ ] Decide whether to keep the layoff sentence in the Experience section
+      (marked `TODO` in `index.html`).
+- [ ] Confirm the Airline Streamlit app still wakes up — it's linked from the
+      #1 project.
 - [ ] Deploy the Starbucks Streamlit app and add its live link.

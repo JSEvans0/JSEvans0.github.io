@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jesse Evans — Data Analyst</title>
-  <meta name="description" content="Portfolio of Jesse Evans, a data analyst working in Python, pandas and SQL. Cleaning messy data, building models, and turning the results into decisions.">
+  <meta name="description" content="Data analyst in Kuna, Idaho. Mapped 100,000+ product records, built a 170,000-row sales dataset, and delivered the analysis in three weeks. Python, pandas, Excel, Plotly.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 </head>
@@ -25,6 +25,7 @@
     <ul class="nav__links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="index.html#experience">Experience</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
@@ -33,24 +34,41 @@
 
 <main id="main">
 
-  <!-- ============================= HERO ============================= -->
+  <!-- ============================= HERO =============================
+       Photo on the left, intro on the right. The photo is
+       assets/jesse-evans.jpg — a cropped, web-sized version of the
+       original in this folder. If you swap the picture, keep it square
+       and around 640x640 so the page stays fast.
+       =============================================================== -->
   <section class="hero">
-    <div class="wrap hero__inner">
-      <p class="eyebrow">Portfolio</p>
-      <h1>Hi, I&rsquo;m Jesse Evans.</h1>
-      <p class="hero__role">Data Analyst &mdash; Python, pandas, SQL</p>
-      <p class="hero__lede">
-        I take messy, real-world datasets, clean them until they can be trusted, and then
-        answer the question somebody actually cares about. Every project below ends with a
-        recommendation, not just a chart.
-      </p>
-      <p class="hero__lede">
-        The work speaks louder than the summary, so start with the projects.
-      </p>
-      <div class="btn-row">
-        <a class="btn btn--primary" href="#top-projects">See my top 3 projects</a>
-        <a class="btn btn--ghost" href="projects.html">Browse everything</a>
+    <div class="wrap hero__grid">
+
+      <img class="hero__photo"
+           src="assets/jesse-evans.jpg"
+           alt="Jesse Evans"
+           width="640" height="640">
+
+      <div class="hero__inner">
+        <p class="eyebrow">Kuna, Idaho &middot; Treasure Valley</p>
+        <h1>Hi, I&rsquo;m Jesse Evans.</h1>
+        <p class="hero__role">Data Analyst &mdash; Python, pandas, Excel, Plotly</p>
+        <p class="hero__lede">
+          I spent eight months turning a product catalog nobody could report on into one that
+          could: <strong>100,000+ records</strong> mapped to standard taxonomies, seven months
+          of daily sales reports consolidated into a single <strong>170,000-row dataset</strong>,
+          and the first brand and parent-company sales analysis the company had ever had &mdash;
+          delivered to management in three weeks.
+        </p>
+        <p class="hero__lede">
+          I&rsquo;m looking for my next analyst role. The projects below are how I keep sharp,
+          and they show my work all the way through &mdash; messy data in, recommendation out.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#top-projects">See my top 3 projects</a>
+          <a class="btn btn--ghost" href="#experience">What I did at Fincretive</a>
+        </div>
       </div>
+
     </div>
   </section>
 
@@ -66,7 +84,7 @@
         <p>
           The three I would want a hiring manager to open first. Each one has its own
           write-up covering the problem, how I cleaned the data, what the model or analysis
-          found, and what I would recommend doing about it.
+          found, what I&rsquo;d recommend doing about it, and where the analysis falls short.
         </p>
       </div>
 
@@ -81,8 +99,70 @@
     </div>
   </section>
 
+  <!-- ========================== EXPERIENCE ========================== -->
+  <section class="section" id="experience">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Experience</p>
+        <h2>Where I&rsquo;ve done this for real</h2>
+      </div>
+
+      <div class="prose">
+
+        <div class="job job--current">
+          <h3 class="job__title">Data Mapper &mdash; Fincretive LLC</h3>
+          <p class="job__meta">Remote &middot; December 2025 – August 2026</p>
+          <ul>
+            <li>
+              Classified and mapped <strong>over 100,000 product records</strong> to standardized
+              taxonomies, improving catalog consistency and downstream reporting accuracy.
+            </li>
+            <li>
+              Consolidated seven months of daily store sales reports into a single
+              <strong>170,000-row dataset</strong> with Python and pandas, deduplicating to
+              roughly 3,100 unique SKUs.
+            </li>
+            <li>
+              Built a <strong>Python web scraper</strong> to validate every SKU against the
+              company Master Item List, automating a catalog audit that found fewer than 200
+              products missing from master data.
+            </li>
+            <li>
+              Enriched those 3,100 products with brand and ultimate parent company attribution
+              through automated matching plus manual research, reaching an estimated
+              <strong>92% accuracy with no existing reference source to work from</strong>.
+            </li>
+            <li>
+              Delivered the result as a reusable product key file, joined it back to the full
+              transaction dataset, and produced Plotly visualizations covering peak sales days,
+              top and most consistent sellers, and the brands driving volume &mdash;
+              <strong>the full analysis in three weeks</strong>.
+            </li>
+          </ul>
+          <p style="margin-top:1rem; font-size:.92rem; color:var(--text-muted)">
+            <!-- TODO (Jesse): delete this line if you'd rather not mention the layoff. It's here
+                 because it answers the question a recruiter will ask anyway. -->
+            The role ended in August 2026 when the company ran out of funding.
+          </p>
+        </div>
+
+        <div class="job">
+          <h3 class="job__title">Delivery Expert &mdash; Domino&rsquo;s Pizza</h3>
+          <p class="job__meta">Kuna, ID &middot; May – December 2020</p>
+          <ul>
+            <li>
+              Deliveries, phone orders and morning prep in a high-volume store, keeping order
+              accuracy up under time pressure. Cross-trained on food production to cover peak demand.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ============================ ABOUT ============================= -->
-  <section class="section" id="about">
+  <section class="section section--alt" id="about">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">About</p>
@@ -90,67 +170,103 @@
       </div>
 
       <div class="prose">
-        <!-- TODO (Jesse): swap the two paragraphs below for your own story.
-             Worth mentioning: what you did before data, what pulled you into
-             analytics, and the kind of role you're looking for now. -->
         <p>
-          I came to data analytics because I like the part of a problem where the answer
-          isn&rsquo;t obvious yet. I completed the data analytics program at
-          <strong>Coding Temple</strong>, where I worked through the full pipeline over and
-          over: pulling data in, cleaning it, exploring it, modeling it, and presenting the
-          result to somebody who needs to make a decision with it.
+          I&rsquo;ve always been good with numbers, math and computers. I started out in media
+          &mdash; I have an A.A. in Media Arts and spent real time on video editing &mdash; but I
+          wanted a career with more room to grow, so I went back for a second associate degree and
+          then a six-month data analytics program at <strong>Coding Temple</strong>. Eight months
+          into an actual data role, I&rsquo;m confident it was the right call.
         </p>
         <p>
-          Since then I&rsquo;ve been building projects of my own, because I would rather show
-          the work than describe it. I&rsquo;m currently looking for a data analyst role where
-          I can keep doing exactly this.
+          What I like about this work is the part where the answer isn&rsquo;t obvious yet. At
+          Fincretive I was handed 100,000 product records, no reference source, and a question
+          nobody could answer from the data as it stood. Getting from that to a chart a manager
+          could act on is the whole job, and most of it is the unglamorous middle.
+        </p>
+        <p>
+          I&rsquo;m based in Kuna and looking for an analyst role anywhere in the Treasure Valley
+          &mdash; Boise, Meridian, Nampa, Caldwell. In-person suits me better than remote.
         </p>
 
         <h3>What I work with</h3>
-        <ul class="skills">
-          <li>Python</li>
-          <li>pandas</li>
-          <li>NumPy</li>
-          <li>scikit-learn</li>
-          <li>Matplotlib</li>
-          <li>Seaborn</li>
-          <li>Plotly</li>
-          <li>Streamlit</li>
-          <li>SQL</li>
-          <li>Jupyter</li>
-          <li>Excel</li>
-          <li>Git &amp; GitHub</li>
-        </ul>
+        <p style="color:var(--text-muted); font-size:.95rem">
+          Split by how well I actually know each one, so you know what you&rsquo;re getting.
+          I&rsquo;d rather be taken at my word in an interview than oversell here.
+        </p>
+
+        <div class="tier tier--pro">
+          <p class="tier__label">Proficient</p>
+          <ul class="skills">
+            <li>Python</li>
+            <li>pandas</li>
+            <li>NumPy</li>
+            <li>Data cleaning &amp; transformation</li>
+            <li>Exploratory data analysis</li>
+            <li>Web scraping</li>
+            <li>Taxonomy mapping &amp; product classification at scale</li>
+            <li>Excel (pivot tables, lookups, structured tables)</li>
+            <li>Plotly</li>
+            <li>Matplotlib</li>
+            <li>Seaborn</li>
+            <li>scikit-learn</li>
+            <li>Linear &amp; polynomial regression</li>
+            <li>KNN &amp; classification</li>
+            <li>Model evaluation against baselines</li>
+            <li>Streamlit</li>
+            <li>Jupyter</li>
+            <li>Git</li>
+          </ul>
+        </div>
+
+        <div class="tier">
+          <p class="tier__label">Familiar</p>
+          <ul class="skills">
+            <li>SQL (MySQL, PostgreSQL)</li>
+            <li>R (tidyverse, dplyr, ggplot2)</li>
+            <li>Tableau</li>
+            <li>Bash / CLI / Linux</li>
+            <li>Entity relationship modeling</li>
+            <li>Normalization</li>
+            <li>Hypothesis testing &amp; inferential statistics</li>
+          </ul>
+        </div>
 
         <h3>How I work through a dataset</h3>
         <ol>
           <li><strong>Ask the question first.</strong> What decision is this analysis supposed to support?</li>
-          <li><strong>Inspect and clean.</strong> Nulls, outliers, and columns that only look useful.</li>
+          <li><strong>Inspect and clean.</strong> Nulls and outliers handled case by case, based on what each missing value actually means.</li>
           <li><strong>Explore.</strong> Distributions and correlations, before assuming anything.</li>
           <li><strong>Model or measure.</strong> Always against a baseline, so &ldquo;good&rdquo; means something.</li>
           <li><strong>Say what to do about it.</strong> A finding without a recommendation is unfinished.</li>
         </ol>
+
+        <h3>Education &amp; certifications</h3>
+        <ul>
+          <li><strong>Data Analytics Certificate</strong> &mdash; Coding Temple, 2025</li>
+          <li><strong>A.A. Liberal Arts</strong> &mdash; College of Western Idaho, 2024</li>
+          <li><strong>A.A. Media Arts</strong> &mdash; College of Western Idaho, 2023</li>
+          <li>Computer programming, business and accounting coursework &mdash; BYU&ndash;Idaho, 2021&ndash;2022</li>
+          <li>Microsoft Certified: Azure Fundamentals (AZ-900) &middot; MOS Excel Associate &middot; MOS Word Associate</li>
+        </ul>
       </div>
     </div>
   </section>
 
   <!-- =========================== CONTACT ============================ -->
-  <section class="section section--alt" id="contact">
+  <section class="section" id="contact">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Contact</p>
         <h2>Let&rsquo;s talk</h2>
         <p>
-          I&rsquo;m open to data analyst roles and to questions about anything in this
-          portfolio. The fastest way to reach me is LinkedIn.
+          I&rsquo;m looking for an analyst role in the Treasure Valley and I&rsquo;m happy to walk
+          through any of this work in detail. Email is the surest way to reach me.
         </p>
       </div>
       <div class="btn-row">
-        <a class="btn btn--primary" href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn--primary" href="mailto:iam@jesseevans.net">iam@jesseevans.net</a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a>
         <a class="btn btn--ghost" href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a>
-        <!-- TODO (Jesse): if you want an email button, uncomment this and drop your address in.
-        <a class="btn btn--ghost" href="mailto:you@example.com">Email me</a>
-        -->
         <!-- TODO (Jesse): to add a resume, save the PDF as assets/Jesse-Evans-Resume.pdf and uncomment.
         <a class="btn btn--ghost" href="assets/Jesse-Evans-Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
         -->
@@ -163,9 +279,10 @@
 <!-- ============================= FOOTER ============================= -->
 <footer class="site-footer">
   <div class="wrap">
-    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans &middot; Kuna, Idaho</p>
     <ul>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="mailto:iam@jesseevans.net">Email</a></li>
       <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/jesse-evans-6434611b1/" target="_blank" rel="noopener">LinkedIn</a></li>
     </ul>

@@ -35,7 +35,7 @@ const PROJECTS = [
     demo: "https://jsevans0airlinepassengersatisfaction.streamlit.app/",
     result: "Online boarding was the single strongest driver of satisfaction.",
     featured: true,
-    year: "2026"
+    year: "2025"
   },
   {
     title: "Ames Home Price Predictions",
@@ -48,7 +48,20 @@ const PROJECTS = [
     repo: "https://github.com/JSEvans0/Mod7-Project-Home-Price-Predictions",
     result: "R² = 0.82 on the test set; RMSE cut from $78,981 to $33,597.",
     featured: true,
-    year: "2026"
+    year: "2025"
+  },
+  {
+    title: "Higher Education Consulting Analytics",
+    blurb:
+      "Analyzed institution-level cost, admissions, enrollment and faculty data for a " +
+      "consulting client that needed measurable levers for raising graduation rates — " +
+      "scoped to what a college can actually control.",
+    tags: ["Python", "pandas", "Seaborn", "EDA", "Recommendations"],
+    page: "projects/higher-education-analytics.html",
+    repo: "https://github.com/JSEvans0/Mod6-Project",
+    result: "Student-to-faculty ratio and share of PhD faculty tracked most closely with graduation rate.",
+    featured: true,
+    year: "2025"
   },
   {
     title: "Exploring IMDb Movies",
@@ -60,20 +73,8 @@ const PROJECTS = [
     page: "projects/imdb-exploration.html",
     repo: "https://github.com/JSEvans0/Mod6-Project-Independent-Exploration",
     result: "Runtime and vote count show no meaningful relationship to rating.",
-    featured: true,
-    year: "2026"
-  },
-  {
-    title: "Higher Education Consulting Analytics",
-    blurb:
-      "Analyzed cost, admissions and faculty data across U.S. colleges to give a " +
-      "consulting client concrete, evidence-backed levers for raising graduation rates.",
-    tags: ["Python", "pandas", "Seaborn", "EDA", "Recommendations"],
-    page: "projects/higher-education-analytics.html",
-    repo: "https://github.com/JSEvans0/Mod6-Project",
-    result: "Faculty size and faculty education level tracked most closely with graduation rate.",
     featured: false,
-    year: "2026"
+    year: "2025"
   },
   {
     title: "Starbucks Nutrition Explorer",
@@ -85,7 +86,7 @@ const PROJECTS = [
     repo: "https://github.com/JSEvans0/Mod8-Mini-Project-Starbucks-EDA",
     result: "Ships a self-serve 'DIY EDA' page so users can chart any two features.",
     featured: false,
-    year: "2026"
+    year: "2025"
   }
 ];
 

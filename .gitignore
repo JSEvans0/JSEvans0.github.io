@@ -1,0 +1,21 @@
+# --------------------------------------------------------------------------
+# PRIVATE — never commit these.
+#
+# Anything committed to this repo is published at jsevans0.github.io and is
+# readable by anyone who guesses the filename. These files hold your phone
+# number, target salary, and job-search notes. They stay on your machine.
+# --------------------------------------------------------------------------
+assets/jesse-evans-career-context*.md
+assets/jesse-evans-resume-temp.md
+*-Master-Prompt.md
+
+# Original full-size photo (8 MB). The web-sized crop, assets/jesse-evans.jpg,
+# is the one the site uses. Committing the original would put 8 MB in the git
+# history permanently, where it can never be removed.
+assets/Jesse Profile*.png
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/

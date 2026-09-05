@@ -142,6 +142,42 @@ hr { border: 0; border-top: 1px solid var(--border); margin: 3rem 0; }
 .hero__role { font-size: 1.15rem; color: var(--accent); font-weight: 600; margin-bottom: 1.1rem; }
 .hero__lede { font-size: 1.08rem; color: var(--text-muted); }
 
+/* Photo on the left, text on the right. Stacks on phones. */
+.hero__grid {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 2.75rem;
+  align-items: center;
+}
+.hero__photo {
+  width: 210px; height: 210px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid var(--surface);
+  box-shadow: var(--shadow);
+}
+
+/* -- 5b. Experience timeline ----------------------------------------------- */
+.job { border-left: 3px solid var(--border); padding: 0 0 0 1.5rem; margin-bottom: 2.25rem; }
+.job:last-child { margin-bottom: 0; }
+.job--current { border-left-color: var(--accent); }
+.job__title { margin-bottom: .1rem; font-size: 1.15rem; }
+.job__meta {
+  color: var(--text-muted); font-size: .88rem; margin-bottom: .9rem;
+  font-family: var(--mono);
+}
+.job ul { padding-left: 1.2rem; margin: 0; }
+.job li { margin-bottom: .5rem; color: var(--text-muted); }
+.job li strong { color: var(--text); }
+
+/* Honest skill tiers */
+.tier { margin-bottom: 1.6rem; }
+.tier__label {
+  font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: .55rem;
+}
+.tier--pro .tier__label { color: var(--accent); }
+
 /* -- 6. Cards -------------------------------------------------------------- */
 .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
 
@@ -243,6 +279,10 @@ tbody tr:hover { background: var(--bg-alt); }
   .nav__links a { display: block; padding: .65rem 0; font-size: 1rem; }
   .section { padding: 3rem 0; }
   .repo-list li { flex-direction: column; gap: .15rem; }
+  .hero { padding: 2.75rem 0 2.5rem; }
+  .hero__grid { grid-template-columns: 1fr; gap: 1.5rem; justify-items: start; }
+  .hero__photo { width: 150px; height: 150px; }
+  .job { padding-left: 1.1rem; }
 }
 
 /* Respect reduced-motion preferences */
