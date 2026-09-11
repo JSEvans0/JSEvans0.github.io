@@ -38,6 +38,20 @@ const PROJECTS = [
     year: "2025"
   },
   {
+    title: "Global Ad Performance",
+    blurb:
+      "A PostgreSQL star schema over an $11.1M ad portfolio, with every aggregation done " +
+      "in SQL — window functions, FILTER, percentile_cont, and a 2,000-iteration bootstrap. " +
+      "Ships a dashboard and a one-page memo written for a marketing director.",
+    tags: ["PostgreSQL", "SQL", "Star Schema", "Window Functions", "Bootstrap CIs", "Dashboard"],
+    page: "projects/global-ads-performance.html",
+    repo: "https://github.com/JSEvans0/Global-Ads-Performance",
+    demo: "https://jsevans0.github.io/Global-Ads-Performance/dashboard/index.html",
+    result: "Sized a $1.27M reallocation, then reported its 54.5% break-even tolerance as the number that actually matters.",
+    featured: true,
+    year: "2026"
+  },
+  {
     title: "Ames Home Price Predictions",
     blurb:
       "Cleaned an 82-column housing dataset down to a usable feature set and built a " +
@@ -47,7 +61,7 @@ const PROJECTS = [
     page: "projects/home-price-predictions.html",
     repo: "https://github.com/JSEvans0/Mod7-Project-Home-Price-Predictions",
     result: "R² = 0.82 on the test set; RMSE cut from $78,981 to $33,597.",
-    featured: true,
+    featured: false,
     year: "2025"
   },
   {

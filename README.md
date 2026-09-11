@@ -85,7 +85,12 @@ instead of 8.2 MB). If you swap the photo, keep it square and around that size.
 
 ## Still to do
 
-- [ ] Add a resume PDF to `assets/` and uncomment the button in `index.html`.
+- [ ] Export the resume to PDF, save it as `assets/Jesse-Evans-Resume.pdf`, and
+      uncomment the Resume button in `index.html`. Don't link the .docx — it
+      downloads instead of previewing and carries document metadata.
+- [ ] Confirm https://www.linkedin.com/in/jsevans0/ resolves. The site now uses
+      the short URL from the resume; LinkedIn blocks automated checks so it was
+      never verified. If it 404s, revert to the long `jesse-evans-6434611b1` form.
 - [ ] Decide whether to keep the layoff sentence in the Experience section
       (marked `TODO` in `index.html`).
 - [ ] Confirm the Airline Streamlit app still wakes up — it's linked from the

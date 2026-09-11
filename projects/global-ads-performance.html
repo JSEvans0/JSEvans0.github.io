@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Global Ad Performance — Jesse Evans</title>
+  <meta name="description" content="A PostgreSQL star schema and budget reallocation analysis over an $11.1M ad portfolio. All aggregation in SQL, including a 2,000-iteration bootstrap.">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="nav__brand" href="../index.html">Jesse Evans <span>/ Data Analyst</span></a>
+    <button class="nav__toggle" type="button" aria-controls="nav-links" aria-expanded="false" aria-label="Toggle menu">☰</button>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="project-hero">
+    <div class="wrap">
+      <a class="back-link" href="../projects.html">&larr; All projects</a>
+      <p class="eyebrow">Dimensional modeling &amp; SQL analysis &middot; PostgreSQL</p>
+      <h1>Global Ad Performance</h1>
+      <p class="meta">An $11.1M ad budget, and the question of whether it&rsquo;s pointed at the right platform.</p>
+
+      <ul class="tags">
+        <li>PostgreSQL</li><li>SQL</li><li>Star Schema</li><li>Window Functions</li>
+        <li>Bootstrap CIs</li><li>Dashboard</li><li>Stakeholder Memo</li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://jsevans0.github.io/Global-Ads-Performance/dashboard/index.html" target="_blank" rel="noopener">Open the dashboard</a>
+        <a class="btn btn--ghost" href="https://jsevans0.github.io/Global-Ads-Performance/memo/budget_reallocation_memo.pdf" target="_blank" rel="noopener">Read the one-page memo</a>
+        <a class="btn btn--ghost" href="https://github.com/JSEvans0/Global-Ads-Performance" target="_blank" rel="noopener">Code on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="wrap prose">
+
+      <h2>The problem</h2>
+      <p>
+        A company spends <strong>$11.1M a year</strong> across three ad platforms and gets
+        $54.2M back. That&rsquo;s a healthy 4.88x blended return, which is exactly the kind of
+        number that stops anyone from looking closer. The question worth asking isn&rsquo;t
+        whether the portfolio works &mdash; it&rsquo;s whether the money is pointed at the right
+        platform, and what it would cost to find out we&rsquo;re wrong.
+      </p>
+      <p>
+        This project exists to demonstrate SQL, so every aggregation lives in SQL rather than
+        pandas. The queries <em>are</em> the artifact: readable files in <code>sql/</code> with
+        their results and interpretation in the comments, instead of being buried behind a
+        connection string and a DataFrame.
+      </p>
+
+      <h2>The data</h2>
+      <p>
+        The &ldquo;Global Ads Performance&rdquo; dataset from Kaggle &mdash; 1,800 daily campaign
+        performance records covering calendar year 2024, across 3 platforms, 4 campaign types,
+        5 industries and 7 countries. $11.1M spend, $54.2M revenue, 326,812 conversions.
+      </p>
+      <div class="callout">
+        <p>
+          <strong>This data is synthetic, and I say so on the first page, not the last.</strong>
+          The pipeline is sound &mdash; the derived columns reconcile exactly across all 1,800
+          rows. The <em>distributions</em> are the problem, and they&rsquo;re the reason the
+          dollar figures here are not a claim about Google, Meta or TikTok.
+        </p>
+      </div>
+
+      <h2>The model</h2>
+      <p>
+        A star schema in PostgreSQL: five dimensions and one fact table, with a date dimension
+        covering all 366 days.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Choice</th><th>Why</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Database</td><td>PostgreSQL 18</td>
+              <td>Enforces declared types &mdash; <code>numeric</code> for money, not float</td>
+            </tr>
+            <tr>
+              <td>Model</td><td>Star schema, 5 dims + 1 fact</td>
+              <td>Additive measures only; ratios computed at query time</td>
+            </tr>
+            <tr>
+              <td>Analysis</td><td>SQL throughout</td>
+              <td>Window functions, <code>FILTER</code>, <code>percentile_cont</code>, a bootstrap in pure SQL</td>
+            </tr>
+            <tr>
+              <td>Output</td><td>Static HTML + a PDF memo</td>
+              <td>No server, no notebook, nothing to install to read it</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Getting the grain right</h3>
+      <p>
+        The fact grain is <strong>one row per performance record</strong> &mdash; not one row per
+        date + platform + campaign type + industry + country. That combination repeats twelve
+        times in this file. A composite key would have failed the load outright, and deduping to
+        force one through would have thrown away real spend. So the fact carries a surrogate key,
+        and <code>03_fact.sql</code> verifies row counts, orphan rows and measure totals after
+        every load. &ldquo;The script finished without an error&rdquo; is not the same claim as
+        &ldquo;the data arrived intact.&rdquo;
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>Why the ratios aren&rsquo;t stored.</strong> Only additive measures live in the
+          fact table &mdash; impressions, clicks, spend, conversions, revenue. CTR, CPC, CPA and
+          ROAS are recomputed as a <em>ratio of sums</em> in every aggregate. Storing them invites
+          <code>avg(roas)</code>, which weights a $58.00 campaign the same as a $38,453.32 one.
+          On this data that overstates portfolio ROAS by <strong>32%</strong> (6.45x against the
+          true 4.88x) &mdash; and it inflates the platforms unevenly, distorting the exact
+          comparison the whole recommendation rests on.
+        </p>
+      </div>
+
+      <h2>What I found</h2>
+      <ol>
+        <li>
+          <strong>Google absorbs 57.2% of spend and returns 40.7% of revenue</strong> &mdash; a
+          16.5-point deficit, at 3.47x blended ROAS against 5.66x for Meta and 7.62x for TikTok.
+        </li>
+        <li>
+          <strong>All 28 of Google&rsquo;s campaign-type × country cells return below the 4.88x
+          portfolio average.</strong> None of TikTok&rsquo;s 28 do. 61.5% of the book sits in
+          below-average cells.
+        </li>
+        <li>
+          <strong>The gap is entirely a click-cost gap.</strong> Conversion rate varies 5% relative
+          across platforms (4.47%&ndash;4.71%) and revenue per conversion varies 3% &mdash; where
+          Google is actually the highest. CPC varies <strong>112%</strong> ($1.02 vs $2.16).
+          You aren&rsquo;t buying better customers on TikTok; you&rsquo;re buying the same ones cheaper.
+        </li>
+        <li>
+          <strong>Campaign type, country and industry carry almost no signal.</strong> Campaign
+          type spans 4.58x&ndash;5.31x against 120% for platform, and TikTok beats Google in all 16
+          segments by a near-identical 2.20x multiple. That&rsquo;s one finding restated, not four
+          independent ones.
+        </li>
+      </ol>
+
+      <h2>The recommendation</h2>
+      <p>
+        Shift <strong>20% of Google spend &mdash; $1,269,854 &mdash; toward TikTok and Meta</strong>.
+        Modeled impact is <strong>+$5.27M revenue (+9.7%)</strong>, lifting blended return from
+        4.88x to 5.35x. Taking it from Google&rsquo;s six weakest cells (2.62x, rather than trimming
+        evenly at its 3.47x average) is worth a further $1.08M.
+      </p>
+
+      <div class="callout">
+        <p>
+          <strong>The $5.27M is not the number worth quoting. The 54.5% is.</strong>
+          The move survives a 54.5% collapse in TikTok&rsquo;s marginal return before it stops
+          adding revenue. A headline gain is a forecast someone will hold you to; a break-even
+          tolerance tells a director how wrong the analysis can be before the decision changes.
+          That&rsquo;s the figure that belongs in the memo.
+        </p>
+      </div>
+
+      <h2>Where it breaks down</h2>
+      <p>
+        I spent about as much effort establishing where this analysis fails as producing the
+        number itself. That section is the reason I&rsquo;d show anyone this project.
+      </p>
+      <ul>
+        <li>
+          <strong>The reallocation figure is an upper bound, not a forecast.</strong> It assumes
+          TikTok returns its <em>average</em> ROAS on <em>incremental</em> spend. Auction dynamics
+          say it won&rsquo;t &mdash; reach saturates, and a cheap CPC is often the signal of a small
+          audience pool. Nothing in this data can test that, and saying so plainly is the most
+          important sentence in the memo.
+        </li>
+        <li>
+          <strong>Country-level conclusions aren&rsquo;t supported, and I can measure that.</strong>
+          A 2,000-iteration bootstrap on TikTok&rsquo;s country ROAS gives an average 95% interval
+          3.47 points wide, against a total spread of only 2.22 points between best and worst
+          country. All 21 country pairs overlap. The same test at platform level separates cleanly
+          &mdash; TikTok [6.99, 8.30], Meta [5.23, 6.11], Google [3.23, 3.72] &mdash; which is
+          exactly why the recommendation is a platform decision and stops there.
+        </li>
+        <li>
+          <strong>Cell-level rankings are directional at best.</strong> Of 84 platform × campaign
+          type × country cells, the smallest holds 10 records and 0.35% of spend, and 35 hold
+          fewer than 20.
+        </li>
+        <li>
+          <strong>The data is synthetic, and not subtly so.</strong> 19% of rows return more than
+          10x and one returns 49x. Revenue per conversion sits in a suspiciously tight
+          $30.21&ndash;$299.97 band that looks uniform and independent of every dimension.
+          Conversion rate is effectively constant across platforms, which no real ad account has
+          ever produced. There&rsquo;s no seasonality across 360 days and no weekday effect
+          (4.89x vs 4.86x).
+        </li>
+      </ul>
+      <p>
+        The modeling, the sizing method and the stress tests are the deliverable. The dollar
+        figures are not.
+      </p>
+
+      <h2>What I&rsquo;d do with real data</h2>
+      <ul>
+        <li>
+          <strong>Incrementality testing over observed ROAS.</strong> Geo holdouts on both
+          platforms. Nothing here measures whether the revenue would have arrived anyway, which
+          is the question this whole analysis is standing in for.
+        </li>
+        <li>
+          <strong>Marginal, not average, ROAS.</strong> Fit a response curve per platform from
+          spend step-changes, so the reallocation is priced against the next dollar rather than
+          the average one &mdash; the single assumption carrying the most weight here.
+        </li>
+        <li>
+          <strong>Check the attribution windows.</strong> If Google is credited on a different
+          window than TikTok, part of that 2.2x gap is measurement rather than performance.
+        </li>
+        <li>
+          <strong>Creative and audience as dimensions.</strong> The star schema has room;
+          &ldquo;platform&rdquo; is currently absorbing variance that belongs to creative fatigue
+          and audience overlap.
+        </li>
+        <li>
+          <strong>Slowly-changing dimensions.</strong> Real accounts rename and restructure
+          campaigns, so <code>dim_campaign</code> would need SCD Type 2 to keep history comparable.
+        </li>
+      </ul>
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="https://jsevans0.github.io/Global-Ads-Performance/dashboard/index.html" target="_blank" rel="noopener">Open the dashboard</a>
+        <a class="btn btn--ghost" href="https://jsevans0.github.io/Global-Ads-Performance/memo/budget_reallocation_memo.pdf" target="_blank" rel="noopener">One-page memo (PDF)</a>
+        <a class="btn btn--ghost" href="https://github.com/JSEvans0/Global-Ads-Performance" target="_blank" rel="noopener">SQL &amp; code</a>
+        <a class="btn btn--ghost" href="../projects.html">More projects</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p style="margin:0">&copy; <span data-year>2026</span> Jesse Evans</p>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../projects.html">Projects</a></li>
+      <li><a href="mailto:iam@jesseevans.net">Email</a></li>
+      <li><a href="https://github.com/JSEvans0" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/jsevans0/" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
